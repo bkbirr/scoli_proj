@@ -1,0 +1,115 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<h1>Dashboard</h1>
+<hr>
+<h2>Number of reads by diagnosis</h2>
+<div class="">
+  <canvas id="bar-chart1"></canvas>
+</div>
+<h2>Number of reads by diagnosis and gender</h2>
+<div class="">
+  <canvas id="bar-chart2"></canvas>
+</div>
+<h2>Number of uploads diagnosed normal by age group</h2>
+<div class="">
+  <canvas id="bar-chart3"></canvas>
+</div>
+<h2>Number of uploads diagnosed as tuberculosis by age group</h2>
+<div class="">
+  <canvas id="bar-chart4"></canvas>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
+<script>
+
+    var config = {
+      type: 'bar',
+      data: {
+        datasets: [{
+          data: {{ data|safe }},
+          label: 'Number of reads by diagnosis'
+        }],
+        labels: {{ labels|safe }}
+      },
+      options: {
+            responsive: true,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        callback: function (value) { if (Number.isInteger(value)) { return value; } },
+                        stepSize: 1
+                    }
+                }]
+            }
+        }
+    };
+
+    var config2 = {
+      type: 'bar',
+      data: {
+        datasets: [{
+          data: {{ data2|safe }},
+          label: 'Number of reads by diagnosis and gender'
+        }],
+        labels: {{ labels2|safe }}
+      },
+      options: {
+            responsive: true,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        callback: function (value) { if (Number.isInteger(value)) { return value; } },
+                        stepSize: 1
+                    }
+                }]
+            }
+        }
+    };
+
+    var config3 = {
+      type: 'bar',
+      data: {
+        datasets: [{
+          data: {{ data3|safe }},
+          label: 'Number of uploads by normal diagnosis and age group'
+        }],
+        labels: {{ labels3|safe }}
+      },
+      options: {
+            responsive: true,
+            
+        }
+    };
+
+    var config4 = {
+      type: 'bar',
+      data: {
+        datasets: [{
+          data: {{ data4|safe }},
+          label: 'Number of uploads by tuberculosis diagnosis and age group'
+        }],
+        labels: {{ labels4|safe }}
+      },
+      options: {
+            responsive: true,
+            
+        }
+    };
+
+    window.onload = function() {
+      var ctx = document.getElementById('bar-chart1').getContext('2d');
+      window.myBar = new Chart(ctx, config);
+    
+      var ctx2 = document.getElementById("bar-chart2").getContext("2d");
+      window.myBar = new Chart(ctx2, config2);
+
+      var ctx3 = document.getElementById("bar-chart3").getContext("2d");
+      window.myBar = new Chart(ctx3, config3);
+
+      var ctx4 = document.getElementById("bar-chart4").getContext("2d");
+      window.myBar = new Chart(ctx4, config4);
+    };
+  </script>
+{% endblock content %}

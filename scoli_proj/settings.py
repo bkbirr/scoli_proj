@@ -49,6 +49,9 @@ INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     "crispy_forms",
+    "crispy_tailwind",
+    "django_filters",
+    "django_extensions",
     "core",
 ]
 
@@ -152,3 +155,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 CRISPY_TEMPLATE_PACK = "tailwind"
+
+# Url to store the model
+MODEL_ROOT = os.path.join(BASE_DIR, "model")

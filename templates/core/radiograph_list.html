@@ -1,0 +1,49 @@
+{% extends "_base.html" %}
+{% load tz %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="">
+        {% if filter %}
+            <div class="space-x-2">
+                <button class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        type="button"
+                        _="on click toggle .hidden on <div#search/>">
+                    Search
+                </button>
+                <a class="inline-flex items-center rounded-md border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                   href="{% url 'create' %}">Process Image</a>
+            </div>
+            <div id="search" class="hidden py-4">
+                <form method="get">
+                    <div class="">
+                        <div class="">{{ filter.form.reading|as_crispy_field }}</div>
+                        <div class="">{{ filter.form.sex|as_crispy_field }}</div>
+                    </div>
+                    <button type="submit" class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Search</button>
+                    <a href="{%  url 'list' %}">Clear all filters</a>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+    <div class="">
+        {% for item in items %}
+            <div class="">
+                <img class="" src="{{ item.img.url }}"  alt="...">
+                <div class="">
+                    <p>Patient age: {{ item.age }}</p>
+                    <p>Patient sex: {{ item.get_sex_display }}</p>
+                    <h5 class="">
+                        Result: Image read as {{ item.get_reading_display }} with a confidence of {{ item.confidence }}%.
+                    </h5>
+                    <a class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" href="{% url 'update' item.id %}">Edit</a>
+                    <a class="inline-flex items-center rounded-md border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" href="{% url 'delete' item.id %}">Delete</a>
+                </div>
+                <div class="">
+                    <p class="">
+                        Created: {{ item.created }}</>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% endblock content %}

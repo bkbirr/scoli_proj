@@ -11,6 +11,13 @@ psycopg2-binary = "*"
 whitenoise = "*"
 flower = "*"
 django-crispy-forms = "*"
+tensorflow = "*"
+django-resized = "*"
+django-extensions = "*"
+django-filter = "*"
+pillow = "*"
+install = "*"
+crispy-tailwind = "*"
 
 [dev-packages]
 
